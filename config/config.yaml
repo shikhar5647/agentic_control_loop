@@ -1,0 +1,60 @@
+model:
+  name: "gemini-2.5-pro"
+  temperature: 0
+  max_tokens: 8000
+
+agents:
+  pfd_analyzer:
+    temperature: 0.1
+    description: "Analyzes PFD structure and identifies control requirements"
+  
+  rga_calculator:
+    temperature: 0.1
+    description: "Calculates Relative Gain Array for variable pairing"
+  
+  controllability_analyzer:
+    temperature: 0.1
+    description: "Performs SVD-based controllability analysis"
+  
+  pairing_optimizer:
+    temperature: 0.1
+    description: "Optimizes control pairings using chemical engineering heuristics"
+  
+  validation_agent:
+    temperature: 0.1
+    description: "Validates control structure against engineering principles"
+
+control_parameters:
+  # RGA thresholds
+  rga_threshold_good: 0.7  # λ_ij close to 1 indicates good pairing
+  rga_threshold_poor: 0.3  # λ_ij close to 0 indicates no pairing
+  
+  # Controllability metrics
+  min_singular_value_ratio: 0.01  # Minimum condition number
+  interaction_index_threshold: 0.3  # Maximum acceptable interaction
+  
+  # Pairing algorithm weights
+  weight_rga: 0.4
+  weight_controllability: 0.3
+  weight_interaction: 0.3
+
+chemical_engineering_principles:
+  # Common control strategies by unit operation
+  distillation:
+    - "Control reflux ratio for product composition"
+    - "Level control on condenser and reboiler"
+    - "Pressure control for stable operation"
+    
+  reactor:
+    - "Temperature control critical for reaction rate and safety"
+    - "Pressure control for gas-phase reactions"
+    - "Level control for liquid inventory"
+    - "Flow ratio control for reactant stoichiometry"
+    
+  heat_exchanger:
+    - "Temperature control via coolant/heating medium flow"
+    - "Pressure drop considerations"
+    
+  separator:
+    - "Level control for phase separation"
+    - "Pressure control for vapor-liquid equilibrium"
