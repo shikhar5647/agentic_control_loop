@@ -4,3 +4,5 @@ from typing import Dict, Any
 import numpy as np
 import logging
 import json
+
+logger = logging.getLogger(__name__)
