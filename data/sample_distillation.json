@@ -1,0 +1,143 @@
+{
+  "name": "Binary Distillation Column",
+  "description": "A binary distillation column separating a mixture of benzene and toluene. The column operates at atmospheric pressure with 20 theoretical stages. Feed enters at stage 10. Top product (benzene-rich) is withdrawn as distillate, bottom product (toluene-rich) is withdrawn from reboiler.",
+  "unit_operations": [
+    {
+      "name": "D-101",
+      "type": "distillation_column",
+      "description": "Main distillation column with reboiler and condenser"
+    },
+    {
+      "name": "E-101",
+      "type": "heat_exchanger",
+      "description": "Reboiler"
+    },
+    {
+      "name": "E-102",
+      "type": "heat_exchanger",
+      "description": "Condenser"
+    }
+  ],
+  "controlled_variables": [
+    {
+      "name": "X_top",
+      "type": "composition",
+      "unit": "mol% benzene",
+      "range": [95.0, 99.5],
+      "nominal_value": 98.0,
+      "unit_operation": "D-101",
+      "description": "Top product composition (benzene purity)"
+    },
+    {
+      "name": "X_bottom",
+      "type": "composition",
+      "unit": "mol% toluene",
+      "range": [96.0, 99.8],
+      "nominal_value": 98.5,
+      "unit_operation": "D-101",
+      "description": "Bottom product composition (toluene purity)"
+    },
+    {
+      "name": "P_column",
+      "type": "pressure",
+      "unit": "kPa",
+      "range": [98.0, 105.0],
+      "nominal_value": 101.325,
+      "unit_operation": "D-101",
+      "description": "Column pressure"
+    },
+    {
+      "name": "L_reflux_drum",
+      "type": "level",
+      "unit": "%",
+      "range": [30.0, 70.0],
+      "nominal_value": 50.0,
+      "unit_operation": "D-101",
+      "description": "Reflux drum level"
+    },
+    {
+      "name": "L_sump",
+      "type": "level",
+      "unit": "%",
+      "range": [30.0, 70.0],
+      "nominal_value": 50.0,
+      "unit_operation": "D-101",
+      "description": "Column sump level"
+    }
+  ],
+  "manipulated_variables": [
+    {
+      "name": "R_reflux",
+      "type": "flow",
+      "unit": "kg/h",
+      "range": [1000.0, 5000.0],
+      "nominal_value": 3000.0,
+      "unit_operation": "D-101",
+      "description": "Reflux flow rate"
+    },
+    {
+      "name": "Q_reboiler",
+      "type": "flow",
+      "unit": "kW",
+      "range": [500.0, 2000.0],
+      "nominal_value": 1200.0,
+      "unit_operation": "E-101",
+      "description": "Reboiler duty (steam flow)"
+    },
+    {
+      "name": "Q_condenser",
+      "type": "flow",
+      "unit": "kW",
+      "range": [500.0, 2000.0],
+      "nominal_value": 1100.0,
+      "unit_operation": "E-102",
+      "description": "Condenser duty (cooling water flow)"
+    },
+    {
+      "name": "F_distillate",
+      "type": "flow",
+      "unit": "kg/h",
+      "range": [500.0, 2000.0],
+      "nominal_value": 1000.0,
+      "unit_operation": "D-101",
+      "description": "Distillate product flow rate"
+    },
+    {
+      "name": "F_bottoms",
+      "type": "flow",
+      "unit": "kg/h",
+      "range": [500.0, 2000.0],
+      "nominal_value": 1000.0,
+      "unit_operation": "D-101",
+      "description": "Bottoms product flow rate"
+    }
+  ],
+  "disturbance_variables": [
+    {
+      "name": "F_feed",
+      "type": "flow",
+      "unit": "kg/h",
+      "description": "Feed flow rate disturbance"
+    },
+    {
+      "name": "Z_feed",
+      "type": "composition",
+      "unit": "mol% benzene",
+      "description": "Feed composition disturbance"
+    }
+  ],
+  "gain_matrix": [
+    [0.85, -0.12, 0.05, 0.02, -0.01],
+    [-0.10, 0.90, -0.08, -0.02, 0.03],
+    [0.15, 0.20, 0.95, -0.05, -0.08],
+    [0.05, 0.02, -0.03, 0.88, 0.10],
+    [-0.03, 0.05, 0.02, 0.12, 0.92]
+  ],
+  "time_constants": [
+    [10.0, 15.0, 5.0, 3.0, 3.0],
+    [12.0, 8.0, 6.0, 3.0, 3.0],
+    [2.0, 2.5, 1.5, 1.0, 1.0],
+    [1.0, 1.5, 1.0, 0.5, 0.8],
+    [1.0, 1.5, 1.0, 0.8, 0.5]
+  ]
+}
