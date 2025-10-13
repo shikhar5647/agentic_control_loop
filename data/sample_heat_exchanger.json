@@ -1,0 +1,104 @@
+{
+  "name": "Heat Exchanger Network",
+  "description": "A heat exchanger network consisting of two shell-and-tube heat exchangers in series. Hot process stream is cooled using cooling water. The system needs to maintain specific outlet temperatures for process requirements.",
+  "unit_operations": [
+    {
+      "name": "E-101",
+      "type": "heat_exchanger",
+      "description": "Primary heat exchanger"
+    },
+    {
+      "name": "E-102",
+      "type": "heat_exchanger",
+      "description": "Secondary heat exchanger (trim cooler)"
+    }
+  ],
+  "controlled_variables": [
+    {
+      "name": "T_out_E101",
+      "type": "temperature",
+      "unit": "°C",
+      "range": [60.0, 80.0],
+      "nominal_value": 70.0,
+      "unit_operation": "E-101",
+      "description": "Process outlet temperature from E-101"
+    },
+    {
+      "name": "T_out_E102",
+      "type": "temperature",
+      "unit": "°C",
+      "range": [35.0, 45.0],
+      "nominal_value": 40.0,
+      "unit_operation": "E-102",
+      "description": "Final process outlet temperature from E-102"
+    },
+    {
+      "name": "dP_E101",
+      "type": "pressure",
+      "unit": "kPa",
+      "range": [5.0, 20.0],
+      "nominal_value": 10.0,
+      "unit_operation": "E-101",
+      "description": "Pressure drop across E-101 (fouling indicator)"
+    }
+  ],
+  "manipulated_variables": [
+    {
+      "name": "F_cool_E101",
+      "type": "flow",
+      "unit": "kg/h",
+      "range": [1000.0, 8000.0],
+      "nominal_value": 4500.0,
+      "unit_operation": "E-101",
+      "description": "Cooling water flow to E-101"
+    },
+    {
+      "name": "F_cool_E102",
+      "type": "flow",
+      "unit": "kg/h",
+      "range": [500.0, 4000.0],
+      "nominal_value": 2000.0,
+      "unit_operation": "E-102",
+      "description": "Cooling water flow to E-102"
+    },
+    {
+      "name": "V_bypass_E101",
+      "type": "flow",
+      "unit": "%",
+      "range": [0.0, 50.0],
+      "nominal_value": 10.0,
+      "unit_operation": "E-101",
+      "description": "Bypass valve position around E-101"
+    }
+  ],
+  "disturbance_variables": [
+    {
+      "name": "T_process_in",
+      "type": "temperature",
+      "unit": "°C",
+      "description": "Process inlet temperature disturbance"
+    },
+    {
+      "name": "F_process",
+      "type": "flow",
+      "unit": "kg/h",
+      "description": "Process flow rate disturbance"
+    },
+    {
+      "name": "T_cooling_water",
+      "type": "temperature",
+      "unit": "°C",
+      "description": "Cooling water supply temperature"
+    }
+  ],
+  "gain_matrix": [
+    [0.88, 0.15, -0.35],
+    [0.25, 0.90, -0.10],
+    [0.12, 0.08, 0.05]
+  ],
+  "time_constants": [
+    [3.0, 5.0, 2.0],
+    [4.0, 2.5, 3.0],
+    [10.0, 8.0, 1.0]
+  ]
+}
