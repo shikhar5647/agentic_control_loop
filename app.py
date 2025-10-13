@@ -119,6 +119,7 @@ st.markdown('<div class="main-header">🏭 PFD Control Loop Prediction System</d
 st.markdown("""
 <div style="text-align: center; color: #666; margin-bottom: 2rem;">
     <strong>AI-Powered Control Structure Design using Chemical Engineering Principles</strong><br>
+    <strong> Made by Shikhar Dave</strong>
     Multi-Agent System | RGA Analysis | SVD Controllability | LangGraph Workflow
 </div>
 """, unsafe_allow_html=True)
@@ -155,7 +156,7 @@ with st.sidebar:
             config = yaml.safe_load(f)
     else:
         config = {
-            'model': {'name': 'gemini-1.5-pro', 'temperature': 0.3},
+            'model': {'name': 'gemini-2.5-pro', 'temperature': 0.1},
             'agents': {}
         }
     
@@ -163,7 +164,7 @@ with st.sidebar:
     st.markdown("#### Model Settings")
     model_name = st.selectbox(
         "Gemini Model",
-        ["gemini-1.5-pro", "gemini-1.5-flash"],
+        ["gemini-2.5-pro", "gemini-2.5-flash"],
         index=0,
         help="Select the Gemini model to use"
     )
