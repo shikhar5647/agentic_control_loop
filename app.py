@@ -648,46 +648,49 @@ with tab3:
                         expanded=True
                     ):
                         col1, col2 = st.columns([2, 1])
-                
-                with col1:
-                    # Bar chart
-                    fig = go.Figure()
-                    fig.add_trace(go.Bar(
-                        x=[f"σ{i+1}" for i in range(len(singular_values))],
-                        y=singular_values,
-                        marker_color='lightblue',
-                        text=[f"{sv:.4f}" for sv in singular_values],
-                        textposition='auto'
-                    ))
-                    fig.update_layout(
-                        xaxis_title="Singular Value",
-                        yaxis_title="Magnitude",
-                        yaxis_type="log",
-                        height=350,
-                        title="Singular Value Distribution"
-                    )
-                    st.plotly_chart(fig, use_container_width=True)
-                
-                with col2:
-                    st.markdown("**Controllability Assessment:**")
-                    
-                    cond_num = result.get('condition_number', 0)
-                    if cond_num < 10:
-                        st.success("✅ Well-conditioned system")
-                    elif cond_num < 100:
-                        st.warning("⚠️ Moderately conditioned")
-                    else:
-                        st.error("❌ Ill-conditioned system")
-                    
-                    st.metric("Condition Number", f"{cond_num:.2f}")
-                    st.metric("Smallest σ", f"{singular_values[-1]:.4f}")
-                    st.metric("Largest σ", f"{singular_values[0]:.4f}")
-                    
-                    # Controllability interpretation
-                    st.markdown("---")
-                    st.markdown("**Interpretation:**")
-                    st.caption("Large σ: Strong control direction")
-                    st.caption("Small σ: Weak control direction")
+
+                # Extract singular values from result
+                singular_values = result.get('singular_values', [])
+                if singular_values:
+                    with col1:
+                        # Bar chart
+                        fig = go.Figure()
+                        fig.add_trace(go.Bar(
+                            x=[f"σ{i+1}" for i in range(len(singular_values))],
+                            y=singular_values,
+                            marker_color='lightblue',
+                            text=[f"{sv:.4f}" for sv in singular_values],
+                            textposition='auto'
+                        ))
+                        fig.update_layout(
+                            xaxis_title="Singular Value",
+                            yaxis_title="Magnitude",
+                            yaxis_type="log",
+                            height=350,
+                            title="Singular Value Distribution"
+                        )
+                        st.plotly_chart(fig, use_container_width=True)
+
+                    with col2:
+                        st.markdown("**Controllability Assessment:**")
+
+                        cond_num = result.get('condition_number', 0)
+                        if cond_num < 10:
+                            st.success("✅ Well-conditioned system")
+                        elif cond_num < 100:
+                            st.warning("⚠️ Moderately conditioned")
+                        else:
+                            st.error("❌ Ill-conditioned system")
+
+                        st.metric("Condition Number", f"{cond_num:.2f}")
+                        st.metric("Smallest σ", f"{singular_values[-1]:.4f}")
+                        st.metric("Largest σ", f"{singular_values[0]:.4f}")
+
+                        # Controllability interpretation
+                        st.markdown("---")
+                        st.markdown("**Interpretation:**")
+                        st.caption("Large σ: Strong control direction")
+                        st.caption("Small σ: Weak control direction")
             
             st.markdown("---")
             
