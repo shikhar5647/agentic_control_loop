@@ -1,4 +1,4 @@
-# 🏭 PFD Control Loop Prediction System - Technical Documentation
+# PFD Control Loop Prediction System - Technical Documentation
 
 ## 📋 Project Overview
 
