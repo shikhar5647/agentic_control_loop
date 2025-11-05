@@ -1,7 +1,7 @@
-# 🏭 PFD Control Loop Prediction System - Technical Documentation
+# PFD Control Loop Prediction System - Technical Documentation
 
 ## 📋 Project Overview
-
+This is my B.Tech Project working under Santosh Varanasi sir .
 This system uses a **multi-agent AI architecture** built with **LangGraph** and **Google Gemini** to automatically predict optimal control loop pairings for Process Flow Diagrams (PFDs). It combines classical control theory (RGA, SVD) with chemical engineering heuristics and AI reasoning to recommend control structures for industrial chemical processes.
 
 ### Key Technologies
