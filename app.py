@@ -185,7 +185,10 @@ with st.sidebar:
     sample_files = []
     
     if data_folder.exists():
-        sample_files = [f for f in data_folder.glob("*.json") if f.name.startswith('sample_')]
+        # Include all JSON files in data folder as selectable samples so files
+        # like `tennessee_eastman.json` show up in the sample dropdown.
+        # We keep sorting for consistent order.
+        sample_files = sorted([f for f in data_folder.glob("*.json")])
     
     if sample_files:
         sample_options = ["Upload Custom"] + [f.name for f in sample_files]
