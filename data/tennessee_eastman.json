@@ -2,11 +2,11 @@
   "name": "Tennessee Eastman Process (Tennessee Eastman)",
   "description": "Industrial case study based on Tennessee Eastman process. Synthetic realistic gain matrix and time constants generated from heuristics.",
   "unit_operations": [
-    "Reactor",
-    "Separator",
-    "Stripper",
-    "Reflux Drum",
-    "Sump"
+    {"name": "R-101 Reactor", "type": "reactor", "description": "Main reactor"},
+    {"name": "S-201 Separator", "type": "separator", "description": "Primary separator"},
+    {"name": "T-301 Stripper", "type": "stripper", "description": "Stripping column"},
+    {"name": "D-401 Reflux Drum", "type": "reflux_drum", "description": "Reflux drum for distillation"},
+    {"name": "V-501 Sump", "type": "sump", "description": "Process sump"}
   ],
   "process_description": "",
   "controlled_variables": [

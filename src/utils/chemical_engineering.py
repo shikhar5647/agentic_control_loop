@@ -103,15 +103,25 @@ class ChemicalEngineeringUtils:
             Interaction index (0 = no interaction, 1 = full interaction)
         """
         try:
-            G_diag = np.diag(np.diag(gain_matrix))
+            # Handle non-square matrices by building a diagonal matrix of the
+            # same shape as gain_matrix. For non-square G (n_rows x n_cols),
+            # only the first min(n_rows, n_cols) diagonal elements are defined.
+            n_rows, n_cols = gain_matrix.shape
+            min_dim = min(n_rows, n_cols)
+
+            G_diag = np.zeros_like(gain_matrix, dtype=float)
+            diag_elems = np.diag(gain_matrix)
+            for i in range(min_dim):
+                G_diag[i, i] = diag_elems[i]
+
             G_off_diag = gain_matrix - G_diag
-            
+
             norm_off = np.linalg.norm(G_off_diag, 'fro')
             norm_total = np.linalg.norm(gain_matrix, 'fro')
-            
+
             interaction_index = norm_off / norm_total if norm_total != 0 else 0.0
-            
-            return interaction_index
+
+            return float(interaction_index)
         except Exception as e:
             logger.error(f"Error calculating interaction index: {e}")
             return 0.0
