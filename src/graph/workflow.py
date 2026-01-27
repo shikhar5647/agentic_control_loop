@@ -2,6 +2,7 @@ from langgraph.graph import StateGraph, END
 from src.graph.state import AgentState
 from src.agents.pfd_analyzer_agent import PFDAnalyzerAgent
 from src.agents.rga_agent import RGAAgent
+from src.agents.hankel_interaction_agent import HankelInteractionAgent
 from src.agents.controllability_agent import ControllabilityAgent
 from src.agents.pairing_agent import PairingAgent
 from src.agents.validation_agent import ValidationAgent
@@ -11,7 +12,7 @@ import numpy as np
 logger = logging.getLogger(__name__)
 
 class ControlLoopWorkflow:
-    """LangGraph workflow for control loop prediction"""
+    """LangGraph workflow for control loop prediction with Hankel interaction analysis"""
     
     def __init__(self, config: dict = None):
         """
@@ -31,6 +32,9 @@ class ControlLoopWorkflow:
         self.rga_agent = RGAAgent(
             temperature=agent_config.get('rga_calculator', {}).get('temperature', 0.1)
         )
+        self.hankel_agent = HankelInteractionAgent(
+            temperature=agent_config.get('hankel_analyzer', {}).get('temperature', 0.2)
+        )
         self.controllability_agent = ControllabilityAgent(
             temperature=agent_config.get('controllability_analyzer', {}).get('temperature', 0.2)
         )
@@ -44,10 +48,10 @@ class ControlLoopWorkflow:
         # Build graph
         self.graph = self._build_graph()
         
-        logger.info("Control Loop Workflow initialized with 5 agents")
+        logger.info("Control Loop Workflow initialized with 6 agents (including Hankel)")
     
     def _build_graph(self) -> StateGraph:
-        """Build the LangGraph workflow"""
+        """Build the LangGraph workflow with Hankel agent"""
         
         # Create graph with AgentState
         workflow = StateGraph(AgentState)
@@ -55,6 +59,7 @@ class ControlLoopWorkflow:
         # Add nodes for each agent
         workflow.add_node("pfd_analysis", self._pfd_analysis_node)
         workflow.add_node("rga_calculation", self._rga_calculation_node)
+        workflow.add_node("hankel_interaction", self._hankel_interaction_node)
         workflow.add_node("controllability_analysis", self._controllability_analysis_node)
         workflow.add_node("pairing_optimization", self._pairing_optimization_node)
         workflow.add_node("validation", self._validation_node)
@@ -63,15 +68,17 @@ class ControlLoopWorkflow:
         # Set entry point
         workflow.set_entry_point("pfd_analysis")
         
-        # Add edges (sequential flow)
+        # Add edges (sequential flow with Hankel after RGA)
+        # PFD → RGA → Hankel → Controllability → Pairing → Validation → Finalize
         workflow.add_edge("pfd_analysis", "rga_calculation")
-        workflow.add_edge("rga_calculation", "controllability_analysis")
+        workflow.add_edge("rga_calculation", "hankel_interaction")
+        workflow.add_edge("hankel_interaction", "controllability_analysis")
         workflow.add_edge("controllability_analysis", "pairing_optimization")
         workflow.add_edge("pairing_optimization", "validation")
         workflow.add_edge("validation", "finalize")
         workflow.add_edge("finalize", END)
         
-        logger.info("LangGraph workflow built successfully")
+        logger.info("LangGraph workflow built successfully with Hankel agent")
         return workflow.compile()
     
     def _pfd_analysis_node(self, state: AgentState) -> AgentState:
@@ -90,6 +97,15 @@ class ControlLoopWorkflow:
         logger.info("=" * 60)
         result = self.rga_agent.invoke(state)
         logger.info("RGA Calculation Node completed")
+        return result
+    
+    def _hankel_interaction_node(self, state: AgentState) -> AgentState:
+        """Hankel Interaction Analysis Node"""
+        logger.info("=" * 60)
+        logger.info("EXECUTING: Hankel Interaction Node")
+        logger.info("=" * 60)
+        result = self.hankel_agent.invoke(state)
+        logger.info("Hankel Interaction Node completed")
         return result
     
     def _controllability_analysis_node(self, state: AgentState) -> AgentState:
@@ -130,6 +146,8 @@ class ControlLoopWorkflow:
             control_structure = {
                 'pairings': state.get('optimal_pairings', []),
                 'rga_matrix': self._convert_to_list(state.get('rga_matrix')),
+                'hii_matrix': self._convert_to_list(state.get('hii_matrix')),
+                'hankel_singular_values': state.get('hankel_singular_values', []),
                 'singular_values': state.get('singular_values', []),
                 'condition_number': float(state.get('condition_number', 0.0)),
                 'interaction_index': float(state.get('interaction_index', 0.0)),
@@ -141,8 +159,13 @@ class ControlLoopWorkflow:
                 # Include detailed analyses
                 'pfd_analysis': state.get('pfd_analysis', ''),
                 'rga_analysis': state.get('rga_analysis', ''),
+                'hankel_analysis': state.get('hankel_analysis', ''),
                 'controllability_analysis': state.get('controllability_analysis', ''),
                 'pairing_reasoning': state.get('pairing_reasoning', ''),
+                
+                # Include pairings from different analyses
+                'rga_pairings': state.get('rga_pairings', []),
+                'hankel_pairings': state.get('hankel_pairings', []),
                 
                 # Include messages
                 'messages': state.get('messages', []),
@@ -156,7 +179,7 @@ class ControlLoopWorkflow:
                 state['messages'] = []
             state['messages'].append({
                 'agent': 'Workflow',
-                'content': f'Control structure prediction complete! Generated {len(control_structure["pairings"])} control loop pairings.'
+                'content': f'Control structure prediction complete! Generated {len(control_structure["pairings"])} control loop pairings with dynamic interaction analysis.'
             })
             
             logger.info(f"Workflow completed successfully with {len(control_structure['pairings'])} pairings")
@@ -201,6 +224,10 @@ class ControlLoopWorkflow:
                 'rga_matrix': None,
                 'rga_analysis': None,
                 'rga_pairings': None,
+                'hii_matrix': None,
+                'hankel_singular_values': None,
+                'hankel_analysis': None,
+                'hankel_pairings': None,
                 'singular_values': None,
                 'condition_number': None,
                 'controllability_metrics': None,
@@ -220,6 +247,7 @@ class ControlLoopWorkflow:
             # Run workflow
             logger.info("=" * 80)
             logger.info(f"STARTING CONTROL LOOP PREDICTION WORKFLOW: {pfd_data['name']}")
+            logger.info("Pipeline: PFD → RGA → Hankel → Controllability → Pairing → Validation")
             logger.info("=" * 80)
             
             final_state = self.graph.invoke(initial_state)
@@ -236,6 +264,7 @@ class ControlLoopWorkflow:
                 logger.info(f"Results Summary:")
                 logger.info(f"  - Pairings: {len(control_structure.get('pairings', []))}")
                 logger.info(f"  - Confidence: {control_structure.get('confidence_score', 0):.1%}")
+                logger.info(f"  - Hankel Analysis: {'Completed' if control_structure.get('hankel_analysis') else 'Skipped'}")
                 logger.info(f"  - Warnings: {len(control_structure.get('warnings', []))}")
                 logger.info(f"  - Errors: {len(control_structure.get('errors', []))}")
             
@@ -274,6 +303,10 @@ class ControlLoopWorkflow:
                 'rga_matrix': None,
                 'rga_analysis': None,
                 'rga_pairings': None,
+                'hii_matrix': None,
+                'hankel_singular_values': None,
+                'hankel_analysis': None,
+                'hankel_pairings': None,
                 'singular_values': None,
                 'condition_number': None,
                 'controllability_metrics': None,

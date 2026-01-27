@@ -25,6 +25,12 @@ class AgentState(TypedDict):
     controllability_metrics: Optional[Dict]
     controllability_analysis: Optional[str]
     
+    # Hankel Interaction Analysis results
+    hii_matrix: Optional[np.ndarray]
+    hankel_singular_values: Optional[List[float]]
+    hankel_analysis: Optional[str]
+    hankel_pairings: Optional[List[Dict]]
+    
     # Interaction Analysis results
     interaction_index: Optional[float]
     interaction_matrix: Optional[np.ndarray]
