@@ -12,13 +12,17 @@ agents:
     temperature: 0.1
     description: "Calculates Relative Gain Array for variable pairing"
   
+  hankel_analyzer:
+    temperature: 0.2
+    description: "Analyzes dynamic interactions using Hankel Interaction Index"
+  
   controllability_analyzer:
     temperature: 0.1
     description: "Performs SVD-based controllability analysis"
   
   pairing_optimizer:
     temperature: 0.1
-    description: "Optimizes control pairings using chemical engineering heuristics"
+    description: "Optimizes control pairings using RGA, Hankel, and controllability"
   
   validation_agent:
     temperature: 0.1
@@ -29,14 +33,20 @@ control_parameters:
   rga_threshold_good: 0.7  # λ_ij close to 1 indicates good pairing
   rga_threshold_poor: 0.3  # λ_ij close to 0 indicates no pairing
   
+  # Hankel Interaction Index thresholds
+  hii_threshold_good_min: 0.7  # Lower bound for good dynamic pairing
+  hii_threshold_good_max: 1.3  # Upper bound for good dynamic pairing
+  hii_threshold_strong_coupling: 1.5  # Above this indicates strong dynamic coupling
+  
   # Controllability metrics
   min_singular_value_ratio: 0.01  # Minimum condition number
   interaction_index_threshold: 0.3  # Maximum acceptable interaction
   
   # Pairing algorithm weights
-  weight_rga: 0.4
-  weight_controllability: 0.3
-  weight_interaction: 0.3
+  weight_rga: 0.4  # Steady-state interaction
+  weight_hii: 0.25  # Dynamic interaction
+  weight_controllability: 0.25  # System conditioning
+  weight_interaction: 0.1  # Overall coupling
 
 chemical_engineering_principles:
   # Common control strategies by unit operation
@@ -58,3 +68,10 @@ chemical_engineering_principles:
   separator:
     - "Level control for phase separation"
     - "Pressure control for vapor-liquid equilibrium"
+
+hankel_analysis:
+  # Hankel-specific parameters
+  time_horizon_multiplier: 5.0  # Multiple of max time constant for analysis
+  n_samples: 100  # Number of time samples for impulse response
+  characteristic_frequency_method: "average"  # "average" or "dominant"
+  include_in_optimization: true  # Whether to use Hankel in pairing optimization
