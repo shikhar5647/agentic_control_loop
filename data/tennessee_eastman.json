@@ -1,122 +1,828 @@
 {
-  "name": "Tennessee Eastman Process (Tennessee Eastman)",
-  "description": "Industrial case study based on Tennessee Eastman process. Synthetic realistic gain matrix and time constants generated from heuristics.",
+  "name": "Tennessee Eastman Process (12x12 Control Structure)",
+  "description": "The Tennessee Eastman Process is a well-known benchmark chemical process used for testing process control and monitoring strategies. This configuration uses 12 manipulated variables and 12 controlled variables representing key process measurements across the reactor, separator, stripper, and compressor units.",
   "unit_operations": [
-    {"name": "R-101 Reactor", "type": "reactor", "description": "Main reactor"},
-    {"name": "S-201 Separator", "type": "separator", "description": "Primary separator"},
-    {"name": "T-301 Stripper", "type": "stripper", "description": "Stripping column"},
-    {"name": "D-401 Reflux Drum", "type": "reflux_drum", "description": "Reflux drum for distillation"},
-    {"name": "V-501 Sump", "type": "sump", "description": "Process sump"}
+    {
+      "name": "Reactor",
+      "type": "reactor",
+      "description": "Main reactor where chemical reactions occur (CVs: y2, y3, y4, y5)"
+    },
+    {
+      "name": "Product Separator",
+      "type": "separator",
+      "description": "Separates product streams (CVs: y6, y7, y8)"
+    },
+    {
+      "name": "Stripper",
+      "type": "stripper",
+      "description": "Stripping column for product purification (CVs: y9, y10, y11)"
+    },
+    {
+      "name": "Compressor",
+      "type": "compressor",
+      "description": "Compresses recycle stream (CVs: y1, y12)"
+    }
   ],
-  "process_description": "",
   "controlled_variables": [
-    {"name": "A", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reactor", "description": "CV A"},
-    {"name": "B", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reactor", "description": "CV B"},
-    {"name": "C", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reactor", "description": "CV C"},
-    {"name": "D", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reactor", "description": "CV D"},
-    {"name": "E", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Separator", "description": "CV E"},
-    {"name": "F", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Separator", "description": "CV F"},
-    {"name": "G", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Stripper", "description": "CV G"},
-    {"name": "H", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Stripper", "description": "CV H"},
-    {"name": "I", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reflux Drum", "description": "CV I"},
-    {"name": "J", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reflux Drum", "description": "CV J"},
-    {"name": "K", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Sump", "description": "CV K"},
-    {"name": "L", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Sump", "description": "CV L"},
-    {"name": "M", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reactor", "description": "CV M"},
-    {"name": "N", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reactor", "description": "CV N"},
-    {"name": "O", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Separator", "description": "CV O"},
-    {"name": "P", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Separator", "description": "CV P"},
-    {"name": "Q", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Stripper", "description": "CV Q"},
-    {"name": "R", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Stripper", "description": "CV R"},
-    {"name": "S", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reflux Drum", "description": "CV S"},
-    {"name": "T", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reflux Drum", "description": "CV T"},
-    {"name": "U", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Sump", "description": "CV U"},
-    {"name": "V", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Sump", "description": "CV V"},
-    {"name": "W", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reactor", "description": "CV W"},
-    {"name": "X", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reactor", "description": "CV X"},
-    {"name": "Y", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Separator", "description": "CV Y"},
-    {"name": "Z", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Separator", "description": "CV Z"},
-    {"name": "AA", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Stripper", "description": "CV AA"},
-    {"name": "AB", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Stripper", "description": "CV AB"},
-    {"name": "AC", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reflux Drum", "description": "CV AC"},
-    {"name": "AD", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reflux Drum", "description": "CV AD"},
-    {"name": "AE", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Sump", "description": "CV AE"},
-    {"name": "AF", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Sump", "description": "CV AF"},
-    {"name": "AG", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reactor", "description": "CV AG"},
-    {"name": "AH", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reactor", "description": "CV AH"},
-    {"name": "AI", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Separator", "description": "CV AI"},
-    {"name": "AJ", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Separator", "description": "CV AJ"},
-    {"name": "AK", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Stripper", "description": "CV AK"},
-    {"name": "AL", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Stripper", "description": "CV AL"},
-    {"name": "AM", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reflux Drum", "description": "CV AM"},
-    {"name": "AN", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Reflux Drum", "description": "CV AN"},
-    {"name": "AO", "type": "measurement", "unit": "-", "range": [0.0, 200.0], "nominal_value": 50.0, "unit_operation": "Sump", "description": "CV AO"}
+    {
+      "name": "y1",
+      "type": "flow",
+      "unit": "kg/h",
+      "range": [
+        0.0,
+        200.0
+      ],
+      "nominal_value": 100.0,
+      "unit_operation": "Compressor",
+      "description": "recycle flow"
+    },
+    {
+      "name": "y2",
+      "type": "flow",
+      "unit": "kg/h",
+      "range": [
+        0.0,
+        200.0
+      ],
+      "nominal_value": 100.0,
+      "unit_operation": "Reactor",
+      "description": "reactor feed rate"
+    },
+    {
+      "name": "y3",
+      "type": "pressure",
+      "unit": "kPa",
+      "range": [
+        100.0,
+        300.0
+      ],
+      "nominal_value": 200.0,
+      "unit_operation": "Reactor",
+      "description": "reactor pressure"
+    },
+    {
+      "name": "y4",
+      "type": "level",
+      "unit": "%",
+      "range": [
+        0.0,
+        100.0
+      ],
+      "nominal_value": 50.0,
+      "unit_operation": "Reactor",
+      "description": "reactor level"
+    },
+    {
+      "name": "y5",
+      "type": "temperature",
+      "unit": "\u00b0C",
+      "range": [
+        50.0,
+        150.0
+      ],
+      "nominal_value": 100.0,
+      "unit_operation": "Reactor",
+      "description": "reactor temperature"
+    },
+    {
+      "name": "y6",
+      "type": "temperature",
+      "unit": "\u00b0C",
+      "range": [
+        50.0,
+        150.0
+      ],
+      "nominal_value": 100.0,
+      "unit_operation": "Product Separator",
+      "description": "product separator temperature"
+    },
+    {
+      "name": "y7",
+      "type": "level",
+      "unit": "%",
+      "range": [
+        0.0,
+        100.0
+      ],
+      "nominal_value": 50.0,
+      "unit_operation": "Product Separator",
+      "description": "product separator level"
+    },
+    {
+      "name": "y8",
+      "type": "pressure",
+      "unit": "kPa",
+      "range": [
+        100.0,
+        300.0
+      ],
+      "nominal_value": 200.0,
+      "unit_operation": "Product Separator",
+      "description": "product separator pressure"
+    },
+    {
+      "name": "y9",
+      "type": "pressure",
+      "unit": "kPa",
+      "range": [
+        100.0,
+        300.0
+      ],
+      "nominal_value": 200.0,
+      "unit_operation": "Stripper",
+      "description": "stripper pressure"
+    },
+    {
+      "name": "y10",
+      "type": "flow",
+      "unit": "kg/h",
+      "range": [
+        0.0,
+        200.0
+      ],
+      "nominal_value": 100.0,
+      "unit_operation": "Stripper",
+      "description": "stripper underflow"
+    },
+    {
+      "name": "y11",
+      "type": "temperature",
+      "unit": "\u00b0C",
+      "range": [
+        50.0,
+        150.0
+      ],
+      "nominal_value": 100.0,
+      "unit_operation": "Stripper",
+      "description": "stripper temperature"
+    },
+    {
+      "name": "y12",
+      "type": "power",
+      "unit": "kW",
+      "range": [
+        0.0,
+        500.0
+      ],
+      "nominal_value": 250.0,
+      "unit_operation": "Compressor",
+      "description": "compressor work"
+    }
   ],
   "manipulated_variables": [
-    {"name": "D Feed", "type": "manipulated", "unit": "flow", "range": [0.0, 100.0], "nominal_value": 50.0, "unit_operation": "Reactor", "description": "Feed D"},
-    {"name": "E Feed", "type": "manipulated", "unit": "flow", "range": [0.0, 100.0], "nominal_value": 50.0, "unit_operation": "Separator", "description": "Feed E"},
-    {"name": "A Feed", "type": "manipulated", "unit": "flow", "range": [0.0, 100.0], "nominal_value": 50.0, "unit_operation": "Reactor", "description": "Feed A"},
-    {"name": "A+C Feed", "type": "manipulated", "unit": "flow", "range": [0.0, 100.0], "nominal_value": 50.0, "unit_operation": "Reactor", "description": "Feed A+C"},
-    {"name": "Recycle Valve", "type": "manipulated", "unit": "valve", "range": [0.0, 100.0], "nominal_value": 50.0, "unit_operation": "Separator", "description": "Recycle valve"},
-    {"name": "Purge Valve", "type": "manipulated", "unit": "valve", "range": [0.0, 100.0], "nominal_value": 50.0, "unit_operation": "Sump", "description": "Purge valve"},
-    {"name": "Separator Valve", "type": "manipulated", "unit": "valve", "range": [0.0, 100.0], "nominal_value": 50.0, "unit_operation": "Separator", "description": "Separator valve"},
-    {"name": "Stripper Valve", "type": "manipulated", "unit": "valve", "range": [0.0, 100.0], "nominal_value": 50.0, "unit_operation": "Stripper", "description": "Stripper valve"},
-    {"name": "Steam valve", "type": "manipulated", "unit": "valve", "range": [0.0, 100.0], "nominal_value": 50.0, "unit_operation": "Reactor", "description": "Steam valve"},
-    {"name": "Reactor Coolant", "type": "manipulated", "unit": "flow", "range": [0.0, 100.0], "nominal_value": 50.0, "unit_operation": "Reactor", "description": "Coolant flow"},
-    {"name": "Condenser Coolant", "type": "manipulated", "unit": "flow", "range": [0.0, 100.0], "nominal_value": 50.0, "unit_operation": "Reflux Drum", "description": "Condenser coolant"},
-    {"name": "Agitator Speed", "type": "manipulated", "unit": "speed", "range": [0.0, 100.0], "nominal_value": 50.0, "unit_operation": "Reactor", "description": "Agitator speed"}
+    {
+      "name": "u1",
+      "type": "flow",
+      "unit": "kg/h",
+      "range": [
+        0.0,
+        200.0
+      ],
+      "nominal_value": 100.0,
+      "unit_operation": "Reactor",
+      "description": "D feed flow"
+    },
+    {
+      "name": "u2",
+      "type": "flow",
+      "unit": "kg/h",
+      "range": [
+        0.0,
+        200.0
+      ],
+      "nominal_value": 100.0,
+      "unit_operation": "Reactor",
+      "description": "E feed flow"
+    },
+    {
+      "name": "u3",
+      "type": "flow",
+      "unit": "kg/h",
+      "range": [
+        0.0,
+        200.0
+      ],
+      "nominal_value": 100.0,
+      "unit_operation": "Reactor",
+      "description": "A feed flow"
+    },
+    {
+      "name": "u4",
+      "type": "flow",
+      "unit": "kg/h",
+      "range": [
+        0.0,
+        200.0
+      ],
+      "nominal_value": 100.0,
+      "unit_operation": "Reactor",
+      "description": "C feed flow"
+    },
+    {
+      "name": "u5",
+      "type": "valve",
+      "unit": "%",
+      "range": [
+        0.0,
+        100.0
+      ],
+      "nominal_value": 50.0,
+      "unit_operation": "Compressor",
+      "description": "compressor recycle valve"
+    },
+    {
+      "name": "u6",
+      "type": "valve",
+      "unit": "%",
+      "range": [
+        0.0,
+        100.0
+      ],
+      "nominal_value": 50.0,
+      "unit_operation": "Compressor",
+      "description": "purge valve"
+    },
+    {
+      "name": "u7",
+      "type": "flow",
+      "unit": "kg/h",
+      "range": [
+        0.0,
+        200.0
+      ],
+      "nominal_value": 100.0,
+      "unit_operation": "Product Separator",
+      "description": "separator pot liquid flow"
+    },
+    {
+      "name": "u8",
+      "type": "flow",
+      "unit": "kg/h",
+      "range": [
+        0.0,
+        200.0
+      ],
+      "nominal_value": 100.0,
+      "unit_operation": "Stripper",
+      "description": "stripper liquid product flow"
+    },
+    {
+      "name": "u9",
+      "type": "valve",
+      "unit": "%",
+      "range": [
+        0.0,
+        100.0
+      ],
+      "nominal_value": 50.0,
+      "unit_operation": "Stripper",
+      "description": "stripper steam valve"
+    },
+    {
+      "name": "u10",
+      "type": "flow",
+      "unit": "kg/h",
+      "range": [
+        0.0,
+        200.0
+      ],
+      "nominal_value": 100.0,
+      "unit_operation": "Reactor",
+      "description": "reactor cooling water flow"
+    },
+    {
+      "name": "u11",
+      "type": "flow",
+      "unit": "kg/h",
+      "range": [
+        0.0,
+        200.0
+      ],
+      "nominal_value": 100.0,
+      "unit_operation": "Product Separator",
+      "description": "condenser cooling water flow"
+    },
+    {
+      "name": "u12",
+      "type": "speed",
+      "unit": "rpm",
+      "range": [
+        0.0,
+        2000.0
+      ],
+      "nominal_value": 1000.0,
+      "unit_operation": "Compressor",
+      "description": "agitator speed"
+    }
   ],
-  "state_vector": [10.4049, 4.364, 7.5701, 0.423, 24.1551, 2.9426, 154.3771, 159.1866, 2.8085, 63.7558, 26.7403, 46.3853, 0.2465, 15.2048, 1.8523, 52.4464, 41.2039, 0.5699, 0.4306, 0.008, 0.9056, 0.0161, 0.751, 0.0886, 48.2773, 39.3846, 0.3755, 107.7563, 29.7725, 88.3248, 23.0393, 62.8585, 5.5463, 11.9225, 5.5554, 0.9218, 94.5993, 77.297, 63.053, 53.98, 24.644, 61.302, 22.21, 40.064, 38.1, 46.534, 47.446, 41.106, 18.113, 50.0],
   "gain_matrix": [
-    [-0.028, 0.044, 0.024, 0.003, 0.074, -0.013, -0.022, -0.011, -0.037, -0.052, 0.012, -0.008],
-    [0.079, 0.021, -0.001, 0.054, -0.029, -0.071, 0.063, 0.02, -0.038, 0.031, -0.025, 0.014],
-    [-0.004, -0.046, 0.006, -0.021, -0.042, -0.01, 0.072, -0.008, 0.024, -0.047, 0.031, -0.042],
-    [0.049, -0.019, 0.019, -0.012, 0.007, 0.056, -0.017, 0.038, -0.071, 0.019, 0.014, -0.003],
-    [-0.012, -0.038, 0.081, -0.019, -0.052, -0.02, 0.067, 0.034, 0.05, -0.007, -0.013, -0.022],
-    [0.073, -0.06, 0.003, -0.044, 0.019, 0.029, -0.042, 0.009, -0.003, 0.012, -0.014, -0.02],
-    [-0.004, -0.006, -0.025, -0.004, 0.01, -0.035, 0.004, -0.046, -0.008, -0.006, 0.003, 0.014],
-    [0.008, -0.037, -0.017, 0.059, 0.004, 0.047, -0.013, -0.009, -0.002, 0.007, -0.031, 0.003],
-    [0.006, -0.002, 0.026, 0.003, 0.046, 0.016, 0.042, 0.018, -0.05, 0.004, 0.015, -0.011],
-    [0.014, 0.042, -0.029, 0.011, 0.025, 0.026, -0.017, -0.01, -0.044, 0.027, 0.014, -0.008],
-    [0.017, -0.006, 0.001, 0.018, -0.018, 0.004, -0.022, 0.005, 0.016, 0.008, -0.009, 0.007],
-    [0.012, 0.019, -0.013, 0.003, 0.007, 0.015, 0.002, 0.005, 0.009, -0.012, -0.002, 0.003],
-    [0.021, 0.025, -0.006, 0.018, 0.02, 0.012, 0.017, -0.011, -0.02, 0.021, 0.014, 0.016],
-    [-0.007, 0.012, 0.016, -0.003, 0.006, -0.011, 0.004, 0.017, 0.02, -0.005, 0.018, 0.002],
-    [0.008, -0.014, -0.017, 0.019, -0.012, -0.008, 0.012, 0.014, -0.016, 0.013, -0.009, 0.014],
-    [-0.016, 0.015, -0.019, 0.016, 0.013, -0.013, 0.011, 0.015, -0.009, 0.014, 0.008, 0.017],
-    [0.011, 0.018, 0.012, 0.011, 0.015, 0.012, 0.014, 0.016, 0.01, 0.013, 0.011, 0.015],
-    [0.009, -0.011, 0.014, -0.014, 0.012, -0.01, 0.013, -0.015, 0.016, -0.012, 0.014, -0.011],
-    [0.015, 0.012, 0.013, 0.012, 0.014, 0.011, 0.013, 0.012, 0.011, 0.013, 0.012, 0.014],
-    [0.013, 0.014, 0.012, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.012, 0.014, 0.011],
-    [0.012, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014],
-    [0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013],
-    [0.011, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011],
-    [0.013, 0.011, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014],
-    [0.011, 0.013, 0.011, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013],
-    [0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013],
-    [0.011, 0.013, 0.011, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013],
-    [0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013],
-    [0.011, 0.013, 0.011, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013],
-    [0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013],
-    [0.011, 0.013, 0.011, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013],
-    [0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013],
-    [0.011, 0.013, 0.011, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013],
-    [0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013],
-    [0.011, 0.013, 0.011, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013],
-    [0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013],
-    [0.011, 0.013, 0.011, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013],
-    [0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013],
-    [0.011, 0.013, 0.011, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013],
-    [0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013]
-    ,
-    [0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013, 0.014, 0.011, 0.013]
+    [
+      -0.0028,
+      0.5,
+      -11.2025,
+      1.65,
+      -0.0187,
+      -7.0837,
+      -0.264,
+      0.58,
+      0.004,
+      -0.651,
+      1.28,
+      0.1256
+    ],
+    [
+      -0.003,
+      0.78,
+      -8.2062,
+      3.2054,
+      -0.036,
+      -7.682,
+      0.2346,
+      0.91,
+      0.0009,
+      -0.6652,
+      2.314,
+      0.1291
+    ],
+    [
+      -0.2796,
+      0.4991,
+      -3103.25,
+      -287.05,
+      7.78,
+      -965.7,
+      11.968,
+      58.022,
+      0.048,
+      -31.4794,
+      -52.91,
+      6.1135
+    ],
+    [
+      1.28,
+      1.5451,
+      2.53,
+      1.63,
+      3.36,
+      -0.302,
+      1.97,
+      1.6,
+      0.0003,
+      -0.368,
+      4.8603,
+      0.023
+    ],
+    [
+      0.0022,
+      2.24,
+      6.843,
+      1.662,
+      0.0141,
+      -0.8968,
+      0.0281,
+      2.55,
+      0.0005,
+      1.1106,
+      0.098,
+      -0.2149
+    ],
+    [
+      0.0109,
+      0.000152,
+      67.8248,
+      -7.4203,
+      -0.1954,
+      21.0053,
+      0.285,
+      1.72,
+      -0.002,
+      2.2502,
+      4.47,
+      -0.4359
+    ],
+    [
+      0.8,
+      9.3e-05,
+      2.04,
+      0.82,
+      2.26,
+      1.25,
+      221.31,
+      1.07,
+      0.0563,
+      1.2122,
+      2.7634,
+      1.0019
+    ],
+    [
+      -0.2744,
+      0.485,
+      -3053.87,
+      281.139,
+      8.54,
+      -948.7,
+      11.8,
+      58.531,
+      0.0465,
+      -30.8414,
+      -0.009,
+      6.0093
+    ],
+    [
+      -0.308,
+      0.5656,
+      -3377.3005,
+      319.99,
+      3.5,
+      -1059.65,
+      -12.89,
+      66.08,
+      0.0561,
+      -34.4602,
+      21.93,
+      6.7
+    ],
+    [
+      0.36,
+      0.42,
+      0.91,
+      0.37,
+      1.0,
+      0.58,
+      3.08,
+      10.49,
+      0.048,
+      0.0617,
+      1.2301,
+      0.4655
+    ],
+    [
+      0.0095,
+      1.214,
+      2.63,
+      -6.4259,
+      -0.038,
+      20.112,
+      0.413,
+      1.44,
+      368.0,
+      1.87,
+      -4.12,
+      -0.3615
+    ],
+    [
+      -0.0159,
+      6.35,
+      13.75,
+      5.55,
+      12.97,
+      -27.43,
+      2.5,
+      7.37,
+      0.009,
+      -4.51,
+      19.096,
+      0.8732
+    ]
   ],
   "time_constants": [
-    [12.934, 8.713, 4.562, 19.788, 14.861, 9.147, 10.842, 5.239, 18.047, 14.35, 13.487, 10.262],
-    [3.749, 18.358, 11.183, 9.752, 1.129, 5.029, 8.731, 14.725, 13.374, 6.913, 15.414, 12.793],
-    [14.547, 8.724, 16.993, 6.822, 10.994, 13.548, 2.553, 3.73, 18.322, 11.432, 17.436, 4.878],
-    [13.884, 9.086, 11.73, 7.021, 12.357, 19.973, 5.644, 15.998, 2.235, 17.689, 9.349, 14.212],
-    [11.238, 6.996, 4.157, 10.331, 3.828, 17.642, 12.967, 13.775, 14.346, 8.495, 15.798, 6.227]
+    [
+      43.07,
+      43.07,
+      38.39,
+      23.06,
+      21.05,
+      44.94,
+      86.56,
+      70.6,
+      69.0,
+      79.36,
+      43.58,
+      34.7
+    ],
+    [
+      34.84,
+      25.59,
+      41.77,
+      35.0,
+      25.4,
+      38.32,
+      47.56,
+      79.4,
+      58.0,
+      35.4,
+      45.74,
+      46.2
+    ],
+    [
+      55.6,
+      58.48,
+      54.42,
+      99.82,
+      42.93,
+      73.91,
+      83.99,
+      64.32,
+      29.48,
+      63.9,
+      63.1,
+      48.3
+    ],
+    [
+      39.53,
+      85.53,
+      63.65,
+      49.04,
+      27.49,
+      45.6,
+      67.3,
+      80.72,
+      33.96,
+      24.29,
+      36.4,
+      47.5
+    ],
+    [
+      75.35,
+      65.9,
+      83.2,
+      41.59,
+      81.36,
+      37.54,
+      84.9,
+      32.96,
+      48.7,
+      14.29,
+      33.05,
+      56.4
+    ],
+    [
+      48.034,
+      24.59,
+      30.87,
+      56.3,
+      42.21,
+      26.18,
+      29.57,
+      22.66,
+      20.7,
+      47.09,
+      18.6,
+      45.79
+    ],
+    [
+      12.94,
+      15.64,
+      40.8,
+      22.5,
+      21.5,
+      14.09,
+      20.5,
+      20.45,
+      41.99,
+      22.83,
+      26.8,
+      28.61
+    ],
+    [
+      46.07,
+      33.29,
+      53.13,
+      60.54,
+      48.74,
+      58.73,
+      48.17,
+      49.02,
+      39.7,
+      61.06,
+      48.1,
+      33.18
+    ],
+    [
+      37.02,
+      26.44,
+      98.29,
+      42.87,
+      56.83,
+      79.72,
+      45.05,
+      55.2,
+      48.4,
+      81.2,
+      37.9,
+      62.78
+    ],
+    [
+      33.09,
+      38.53,
+      13.91,
+      23.15,
+      15.46,
+      23.66,
+      44.96,
+      21.64,
+      33.4,
+      72.96,
+      31.6,
+      37.6
+    ],
+    [
+      69.98,
+      88.68,
+      55.12,
+      37.47,
+      40.18,
+      45.29,
+      46.45,
+      41.92,
+      20.7,
+      44.5,
+      62.7,
+      56.35
+    ],
+    [
+      38.79,
+      61.63,
+      57.08,
+      68.22,
+      37.41,
+      48.53,
+      43.9,
+      58.99,
+      62.0,
+      35.13,
+      48.5,
+      56.6
+    ]
   ],
-  "disturbance_variables": []
+  "delays": [
+    [
+      4.6,
+      3.6,
+      5.35,
+      4.6,
+      3.54,
+      3.57,
+      2.4,
+      2.31,
+      1.83,
+      2.6,
+      3.6,
+      2.97
+    ],
+    [
+      4.6,
+      3.6,
+      5.35,
+      4.6,
+      3.54,
+      3.57,
+      2.4,
+      2.31,
+      1.83,
+      2.6,
+      3.6,
+      2.97
+    ],
+    [
+      4.6,
+      3.6,
+      5.35,
+      4.6,
+      3.54,
+      3.57,
+      2.4,
+      2.31,
+      1.83,
+      2.6,
+      3.6,
+      2.97
+    ],
+    [
+      4.6,
+      3.6,
+      5.35,
+      4.6,
+      3.54,
+      3.57,
+      2.4,
+      2.31,
+      1.83,
+      2.6,
+      3.6,
+      2.97
+    ],
+    [
+      4.6,
+      3.6,
+      5.35,
+      4.6,
+      3.54,
+      3.57,
+      2.4,
+      2.31,
+      1.83,
+      2.6,
+      3.6,
+      2.97
+    ],
+    [
+      4.6,
+      3.6,
+      5.35,
+      4.6,
+      3.54,
+      3.57,
+      2.4,
+      2.31,
+      1.83,
+      2.6,
+      3.6,
+      2.97
+    ],
+    [
+      4.6,
+      3.6,
+      5.35,
+      4.6,
+      3.54,
+      3.57,
+      2.4,
+      2.31,
+      1.83,
+      2.6,
+      3.6,
+      2.97
+    ],
+    [
+      4.6,
+      3.6,
+      5.35,
+      4.6,
+      3.54,
+      3.57,
+      2.4,
+      2.31,
+      1.83,
+      2.6,
+      3.6,
+      2.97
+    ],
+    [
+      4.6,
+      3.6,
+      5.35,
+      4.6,
+      3.54,
+      3.57,
+      2.4,
+      2.31,
+      1.83,
+      2.6,
+      3.6,
+      2.97
+    ],
+    [
+      4.6,
+      3.6,
+      5.35,
+      4.6,
+      3.54,
+      3.57,
+      2.4,
+      2.31,
+      1.83,
+      2.6,
+      3.6,
+      2.97
+    ],
+    [
+      4.6,
+      3.6,
+      5.35,
+      4.6,
+      3.54,
+      3.57,
+      2.4,
+      2.31,
+      1.83,
+      2.6,
+      3.6,
+      2.97
+    ],
+    [
+      4.6,
+      3.6,
+      5.35,
+      4.6,
+      3.54,
+      3.57,
+      2.4,
+      2.31,
+      1.83,
+      2.6,
+      3.6,
+      2.97
+    ]
+  ]
 }
