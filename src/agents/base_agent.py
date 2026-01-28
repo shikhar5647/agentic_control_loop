@@ -26,7 +26,7 @@ class BaseAgent:
             raise ValueError("GOOGLE_API_KEY not found in environment variables")
         
         self.llm = ChatGoogleGenerativeAI(
-            model="gemini-2.5-pro",
+            model="gemini-3-flash-preview",
             temperature=temperature,
             google_api_key=api_key
         )

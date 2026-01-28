@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 class HankelInteractionAgent(BaseAgent):
     """Agent responsible for Hankel Interaction Index analysis for dynamic loop interactions"""
     
-    def __init__(self, temperature: float = 0.2):
+    def __init__(self, temperature: float = 0.1):
         super().__init__("Hankel Interaction Agent", temperature)
     
     def create_system_prompt(self) -> str:
